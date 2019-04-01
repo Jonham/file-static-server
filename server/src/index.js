@@ -11,7 +11,6 @@ const app = new Koa()
 
 const staticPath = path.resolve('./static')
 
-// console.log(staticPath)
 app.use(
   KoaMount(
     '/static',
@@ -20,10 +19,11 @@ app.use(
     })
   )
 )
+const STATIC_FILE_SERVER_PATH = process.env.STATIC_SERVE_PATH || CONFIG.staicPath
 app.use(
   KoaMount(
     '/_', 
-    require('koa-static')(CONFIG.staicPath)
+    require('koa-static')(STATIC_FILE_SERVER_PATH)
   )
 )
 
