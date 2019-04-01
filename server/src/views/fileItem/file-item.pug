@@ -1,0 +1,7 @@
+//- fileItem
+tr.file-item
+  td.file-name
+    a(href=fileItem.href)
+      img.icon(src="/static/icon/ext/" + (fileItem.ext || 'unknown') + '.svg') 
+      span.title= fileItem.title
+  td.stats= fileItem.size

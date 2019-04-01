@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200px" height="200px" viewBox="0 0 200 200" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.2 (67145) - http://www.bohemiancoding.com/sketch -->
+    <title>Folder</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Folder" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="矩形" fill-rule="nonzero" x="0" y="0" width="200" height="200" rx="8"></rect>
+        <g id="分组" transform="translate(19.000000, 61.000000)" fill-rule="nonzero">
+            <rect id="矩形" fill="#000000" x="7" y="0" width="31" height="24" rx="5"></rect>
+            <rect id="矩形" fill="#0000B8" x="38" y="0" width="31" height="24" rx="5"></rect>
+            <rect id="矩形" fill="#6666FF" x="69" y="0" width="31" height="24" rx="5"></rect>
+            <rect id="矩形" fill="#0000DA" x="0" y="12" width="163" height="105" rx="8"></rect>
+        </g>
+    </g>
+</svg>

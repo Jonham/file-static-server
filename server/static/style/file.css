@@ -1,0 +1,31 @@
+tr.file-item {
+  /* display: block; */
+  padding: 10px 0;
+}
+
+tr.file-item .file-name {
+  /* display: inline-block; */
+}
+tr.file-item .file-name .icon {
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  margin-right: 10px;
+}
+
+tr.file-item .stats {
+  /* display: inline-block; */
+  text-align: right;
+}
+table {
+  width: 100%;
+}
+td.stats {
+  text-align: right;
+}
+table.file-list th {
+  background-color: #eeeeee;
+}
+table.file-list tr:nth-of-type(odd) {
+  background-color: #eeeeee;
+}

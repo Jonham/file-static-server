@@ -1,0 +1,10 @@
+//- page-a.pug
+extends layout/index.pug
+
+block head
+  link(rel="stylesheet", href="/static/style/file.css")
+
+block content
+  h3(style="color: red")= errMessage
+  h3
+    a(href="/")= "返回首页"

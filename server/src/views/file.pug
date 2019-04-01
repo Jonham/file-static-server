@@ -1,0 +1,15 @@
+//- page-a.pug
+extends layout/index.pug
+
+block head
+  link(rel="stylesheet", href="/static/style/file.css")
+
+block content
+  h3= pwd
+  table.file-list
+    tr.file-item
+      th.file-name= '文件名'
+      th.stats= '文件大小'
+
+    each fileItem in statList
+      include fileItem/file-item.pug
