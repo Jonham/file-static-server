@@ -59,10 +59,26 @@ function parseExt (fileName) {
   return d.ext.substr(1)
 }
 
+function joinPath (parentPath, childPath) {
+  if (!childPath) {
+    return parentPath
+  }
+  if (parentPath[parentPath.length - 1] !== '/') {
+    return parentPath + '/' + childPath
+  }
+  // if (childPath.substring(0,3) === '../') {
+  //   return '../' + childPath
+  // }
+  // if(childPath === '/') {
+  //   return '/'
+  // }
+  return parentPath + childPath
+}
+
 app.use(async (ctx, next) => {
   // pathUrl, title, stats
   let ctxPath = ctx.path
-  if (ctxPath[ctxPath.length - 1] !== '/') ctxPath = ctxPath + '/'
+  // if (ctxPath[ctxPath.length - 1] !== '/') ctxPath = ctxPath + '/'
 
   if (ctxPath.indexOf('%') !== -1) ctxPath = decodeURIComponent(ctx.path)
   // ctxPath = decodeURIComponent(ctx.path)
@@ -73,7 +89,7 @@ app.use(async (ctx, next) => {
   let errMessage = ''
   let staticFilePath = '/_' + ctxPath
 
-  if (staticFilePath[staticFilePath.length - 1] !== '/') staticFilePath = staticFilePath + '/'
+  // if (staticFilePath[staticFilePath.length - 1] !== '/') staticFilePath = staticFilePath + '/'
 
   try {
     statList = PathUtils.lsStat(staticPath)
@@ -81,7 +97,7 @@ app.use(async (ctx, next) => {
         const isDir = item.stats.isDirectory()
         return {
           ...item,
-          href: isDir ? (ctxPath + item.title) : (staticFilePath + item.title),
+          href: isDir ? joinPath(ctxPath, item.title) : joinPath(staticFilePath, item.title),
           size: parseSize(item.stats.size),
           ext: isDir ? 'Folder' : parseExt(item.title)
         }
@@ -89,6 +105,15 @@ app.use(async (ctx, next) => {
   } catch (err) {
     errMessage = err.message
   }
+  
+  statList.unshift(
+    {
+      title: '../',
+      href: joinPath(ctxPath, '../'),
+      ext: 'Folder',
+      size: 0,
+    }
+  )
   if (errMessage) {
     await ctx.render('file-error', {
       statList,
