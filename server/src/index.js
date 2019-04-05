@@ -7,6 +7,12 @@ const path = require('path')
 const CONFIG = require('./config')
 const PathUtils = require('./utils/file')
 
+const {
+  parseSize,
+  parseExt,
+  joinPath,
+} = require('./utils')
+
 const app = new Koa()
 
 const staticPath = path.resolve('./static')
@@ -14,12 +20,12 @@ const staticPath = path.resolve('./static')
 app.use(
   KoaMount(
     '/static',
-    require('koa-static')(staticPath, {
-
-    })
+    require('koa-static')(staticPath, {})
   )
 )
 const STATIC_FILE_SERVER_PATH = process.env.STATIC_SERVE_PATH || CONFIG.staicPath
+console.log('STATIC_FILE_SERVER_PATH: ', STATIC_FILE_SERVER_PATH)
+
 app.use(
   KoaMount(
     '/_', 
@@ -44,52 +50,17 @@ app.use(async (ctx, next) => {
   }
 })
 
-// utils
-function parseSize (sizeNum) {
-  if (sizeNum < 1024) return sizeNum + ' B'
-  if (sizeNum < Math.pow(1024, 2)) return (sizeNum / Math.pow(1024, 1)).toFixed(2) + ' KiB'
-  if (sizeNum < Math.pow(1024, 3)) return (sizeNum / Math.pow(1024, 2)).toFixed(2) + ' MiB'
-  if (sizeNum < Math.pow(1024, 4)) return (sizeNum / Math.pow(1024, 3)).toFixed(2) + ' GiB'
-  if (sizeNum < Math.pow(1024, 5)) return (sizeNum / Math.pow(1024, 4)).toFixed(2) + ' TiB'
-  if (sizeNum < Math.pow(1024, 6)) return (sizeNum / Math.pow(1024, 5)).toFixed(2) + ' PiB'
-}
-
-function parseExt (fileName) {
-  const d = path.parse(fileName)
-  return d.ext.substr(1)
-}
-
-function joinPath (parentPath, childPath) {
-  if (!childPath) {
-    return parentPath
-  }
-  if (parentPath[parentPath.length - 1] !== '/') {
-    return parentPath + '/' + childPath
-  }
-  // if (childPath.substring(0,3) === '../') {
-  //   return '../' + childPath
-  // }
-  // if(childPath === '/') {
-  //   return '/'
-  // }
-  return parentPath + childPath
-}
-
 app.use(async (ctx, next) => {
   // pathUrl, title, stats
   let ctxPath = ctx.path
-  // if (ctxPath[ctxPath.length - 1] !== '/') ctxPath = ctxPath + '/'
 
   if (ctxPath.indexOf('%') !== -1) ctxPath = decodeURIComponent(ctx.path)
-  // ctxPath = decodeURIComponent(ctx.path)
-  let staticPath = path.resolve(CONFIG.staicPath, '.' + ctxPath)
-  if (ctxPath === '/') staticPath = CONFIG.staicPath
+  let staticPath = path.resolve(STATIC_FILE_SERVER_PATH, '.' + ctxPath)
+  if (ctxPath === '/') staticPath = STATIC_FILE_SERVER_PATH
 
   let statList = []
   let errMessage = ''
   let staticFilePath = '/_' + ctxPath
-
-  // if (staticFilePath[staticFilePath.length - 1] !== '/') staticFilePath = staticFilePath + '/'
 
   try {
     statList = PathUtils.lsStat(staticPath)
