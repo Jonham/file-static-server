@@ -11,18 +11,25 @@ const {
   parseSize,
   parseExt,
   joinPath,
+  isRoot,
 } = require('./utils')
 
 const app = new Koa()
+const router = new KoaRouter()
 
+// 并存两套机制
+// 服务端pug输出
+// api输出目录结构
 const staticPath = path.resolve('./static')
 
+// css img等静态资源
 app.use(
   KoaMount(
     '/static',
     require('koa-static')(staticPath, {})
   )
 )
+
 const STATIC_FILE_SERVER_PATH = process.env.STATIC_SERVE_PATH || CONFIG.staicPath
 console.log('STATIC_FILE_SERVER_PATH: ', STATIC_FILE_SERVER_PATH)
 
@@ -60,7 +67,7 @@ app.use(async (ctx, next) => {
 
   let statList = []
   let errMessage = ''
-  let staticFilePath = '/_' + ctxPath
+  let staticFilePath = joinPath('/_', ctxPath)
 
   try {
     statList = PathUtils.lsStat(staticPath)
@@ -76,8 +83,9 @@ app.use(async (ctx, next) => {
   } catch (err) {
     errMessage = err.message
   }
-  
-  statList.unshift(
+
+  // add parent folder entry
+  if (!isRoot(ctxPath)) statList.unshift(
     {
       title: '../',
       href: joinPath(ctxPath, '../'),

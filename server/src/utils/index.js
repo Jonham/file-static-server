@@ -14,19 +14,28 @@ function parseExt (fileName) {
   const d = path.parse(fileName)
   return d.ext.substr(1)
 }
-
+/**
+ * @param {String} parentPath
+ * @param {String} childPath
+ */
 function joinPath (parentPath, childPath) {
-  if (!childPath) {
-    return parentPath
-  }
-  if (parentPath[parentPath.length - 1] !== '/') {
-    return parentPath + '/' + childPath
-  }
+  if (!parentPath) throw new Error('parameter must be given.')
+  if (!childPath) return parentPath
+
+  if (parentPath[parentPath.length - 1] !== '/') return parentPath + '/' + childPath
   return parentPath + childPath
+}
+
+/**
+ * @param {String} pathStr
+ */
+function isRoot (pathStr) {
+  return pathStr === '/'
 }
 
 module.exports = {
   parseSize,
   parseExt,
   joinPath,
+  isRoot,
 }
