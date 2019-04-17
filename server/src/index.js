@@ -6,6 +6,7 @@ const path = require('path')
 
 const CONFIG = require('./config')
 const PathUtils = require('./utils/file')
+const versionStr = 'v0.1.1-2019.04.17'
 
 const {
   parseSize,
@@ -97,6 +98,7 @@ app.use(async (ctx, next) => {
     await ctx.render('file-error', {
       statList,
       pwd: staticPath,
+      versionStr,
       errMessage,
     })
     return
@@ -105,6 +107,7 @@ app.use(async (ctx, next) => {
   await ctx.render('file', {
     statList,
     pwd: staticPath,
+    versionStr,
   })
 })
 

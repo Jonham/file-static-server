@@ -29,3 +29,12 @@ table.file-list th {
 table.file-list tr:nth-of-type(odd) {
   background-color: #eeeeee;
 }
+
+h3.version {
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  font-size: 14px;
+  background-color: white;
+  padding: 10px;
+}
