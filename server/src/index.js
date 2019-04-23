@@ -6,7 +6,7 @@ const path = require('path')
 
 const CONFIG = require('./config')
 const PathUtils = require('./utils/file')
-const versionStr = 'v0.1.1-2019.04.17'
+const versionStr = 'v0.1.2-2019.04.23'
 
 const {
   parseSize,
@@ -30,6 +30,14 @@ app.use(
     require('koa-static')(staticPath, {})
   )
 )
+
+function parseExtToType (ext) {
+  if (ext === 'Folder') return ext
+
+  const IMG_LIST = ['img', 'jpg', 'jpeg', 'svg']
+  if (IMG_LIST.indexOf(ext) !== -1) return 'Image'
+  return 'FILE'
+}
 
 const STATIC_FILE_SERVER_PATH = process.env.STATIC_SERVE_PATH || CONFIG.staicPath
 console.log('STATIC_FILE_SERVER_PATH: ', STATIC_FILE_SERVER_PATH)
@@ -74,11 +82,14 @@ app.use(async (ctx, next) => {
     statList = PathUtils.lsStat(staticPath)
       .map(item => {
         const isDir = item.stats.isDirectory()
+        const ext = isDir ? 'Folder' : parseExt(item.title)
+        const type = parseExtToType(ext)
         return {
           ...item,
           href: isDir ? joinPath(ctxPath, item.title) : joinPath(staticFilePath, item.title),
           size: parseSize(item.stats.size),
-          ext: isDir ? 'Folder' : parseExt(item.title)
+          ext,
+          type,
         }
       })
   } catch (err) {

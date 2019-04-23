@@ -22,8 +22,17 @@ function joinPath (parentPath, childPath) {
   if (!parentPath) throw new Error('parameter must be given.')
   if (!childPath) return parentPath
 
-  if (parentPath[parentPath.length - 1] !== '/') return parentPath + '/' + childPath
-  return parentPath + childPath
+  const parentLastSlash = parentPath[parentPath.length - 1] === '/'
+  const childFirstSlash = childPath[0] === '/'
+  if (
+    (parentLastSlash && !childFirstSlash) ||
+    (!parentLastSlash && childFirstSlash)
+  ) {
+    return parentPath + childPath
+  }
+
+  if (parentLastSlash && childFirstSlash) return parentPath + childPath.substr(1)
+  return parentPath + '/' + childPath
 }
 
 /**
