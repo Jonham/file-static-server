@@ -99,7 +99,7 @@ app.use(async (ctx, next) => {
   // add parent folder entry
   if (!isRoot(ctxPath)) statList.unshift(
     {
-      title: '../',
+      title: '../ (Previous Directory 父级目录)',
       href: joinPath(ctxPath, '../'),
       ext: 'Folder',
       size: 0,

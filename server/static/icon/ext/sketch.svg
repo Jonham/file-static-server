@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="96px" height="86px" viewBox="0 0 96 86" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.2 (67145) - http://www.bohemiancoding.com/sketch -->
+    <title>sketch</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="sketch">
+            <polygon id="路径" fill="#FDB300" points="20.9032258 2.8314732 47.9032258 0 74.9032258 2.8314732 95.8064516 30.6662946 47.9032258 86 0 30.6662946"></polygon>
+            <path d="M19.403,30.666295 L47.903,86.000295 L0,30.666295 M76.403678,30.666295 L47.903678,86.000295 L95.806678,30.666295" id="形状" fill="#EA6C00" fill-rule="nonzero"></path>
+            <polyline id="路径" fill="#FDAD00" points="19.403 30.666295 76.403 30.666295 47.903 86.000295"></polyline>
+            <path d="M47.903,0 L20.903,2.831 L19.403,30.666 M47.903452,0 L74.903452,2.831 L76.403452,30.666" id="形状" fill="#FDD231" fill-rule="nonzero"></path>
+            <path d="M95.806678,30.666 L74.903678,2.831 L76.403678,30.666 M0,30.666 L20.903,2.831 L19.403,30.666" id="形状" fill="#FDAD00" fill-rule="nonzero"></path>
+            <polyline id="路径" fill="#FEEEB7" points="47.903 0 19.403 30.666 76.403 30.666"></polyline>
+        </g>
+    </g>
+</svg>
