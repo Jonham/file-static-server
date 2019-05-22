@@ -6,7 +6,7 @@ const path = require('path')
 
 const CONFIG = require('./config')
 const PathUtils = require('./utils/file')
-const versionStr = 'v0.1.2-2019.04.23'
+const versionStr = 'v0.1.3-2019.05.22'
 
 const {
   parseSize,
@@ -67,10 +67,10 @@ app.use(async (ctx, next) => {
 })
 
 app.use(async (ctx, next) => {
-  // pathUrl, title, stats
   let ctxPath = ctx.path
 
   if (ctxPath.indexOf('%') !== -1) ctxPath = decodeURIComponent(ctx.path)
+
   let staticPath = path.resolve(STATIC_FILE_SERVER_PATH, '.' + ctxPath)
   if (ctxPath === '/') staticPath = STATIC_FILE_SERVER_PATH
 
@@ -105,6 +105,7 @@ app.use(async (ctx, next) => {
       size: 0,
     }
   )
+
   if (errMessage) {
     await ctx.render('file-error', {
       statList,

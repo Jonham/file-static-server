@@ -21,6 +21,7 @@ function parseExt (fileName) {
 function joinPath (parentPath, childPath) {
   if (!parentPath) throw new Error('parameter must be given.')
   if (!childPath) return parentPath
+  if (childPath.trim() !== childPath) childPath = encodeURIComponent(childPath).replace('%2F', '/')
 
   const parentLastSlash = parentPath[parentPath.length - 1] === '/'
   const childFirstSlash = childPath[0] === '/'
